@@ -27,6 +27,9 @@ class User extends Authenticatable implements LaratrustUser
         'name',
         'email',
         'password',
+        'cpf',
+        'sexo',
+        'idade',
     ];
 
     /**
@@ -51,4 +54,10 @@ class User extends Authenticatable implements LaratrustUser
             'password' => 'hashed',
         ];
     }
+
+    public function vacinasAplicadas()
+    {
+        return $this->hasMany(CarteiraVacina::class, 'user_id');
+    }
+
 }
