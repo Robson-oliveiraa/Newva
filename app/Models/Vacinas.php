@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vacinas extends Model
 {
-    //
     use HasFactory;
 
     protected $fillable = ['nome', 'descricao', 'validade_meses'];

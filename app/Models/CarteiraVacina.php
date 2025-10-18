@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CarteiraVacina extends Model
 {
-    //
-   use HasFactory;
+    use HasFactory;
 
     protected $fillable = [
         'user_id',
@@ -23,6 +23,6 @@ class CarteiraVacina extends Model
 
     public function vacina()
     {
-        return $this->belongsTo(Vacina::class, 'vacina_id');
+        return $this->belongsTo(Vacinas::class, 'vacina_id');
     }
 }
