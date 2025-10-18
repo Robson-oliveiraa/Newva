@@ -60,4 +60,9 @@ class User extends Authenticatable implements LaratrustUser
         return $this->hasMany(CarteiraVacina::class, 'user_id');
     }
 
+    public function consultas()
+    {
+        return $this->hasMany(Consulta::class);
+    }
+
 }
