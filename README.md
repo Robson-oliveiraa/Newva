@@ -1,66 +1,143 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# <p align="center">Projeto Newva - Béra hackthon</p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 1. Contexto e Fundamentação do Projeto
+Esta seção estabelece a necessidade e o propósito da solução, alinhando-a com os desafios atuais da saúde pública municipal.
+<table width=100%>
+    <tr>
+        <th>Categoria</th>
+        <th>Descrição</th>
+    </tr>
+    <tr>
+        <td>Desafio Central</td>
+        <td>Viabilidade, acessibilidade e conscientização da população em relação aos serviços de saúde, agravadas pela distância entre comunidades e postos.</td>
+    </tr>
+    <tr>
+        <td>Visão Estratégica</td>
+        <td>Fortalecer a saúde básica através da integração entre tecnologia e gestão pública (Alinhamento com a gestão Léo Moraes).</td>
+    </tr>
+    <tr>
+        <td>Propósito da Solução</td>
+        <td>Atuar como uma ponte digital para promover inclusão, agilidade, eficiência na comunicação e uma gestão de saúde moderna e acessível.</td>
+    </tr>
+    <tr>
+        <td>Tecnologia do MVP</td>
+        <td>Utilização de Laravel (Backend) e MySQL (Banco de Dados), rodando em ambiente Laragon para o Produto Mínimo Viável (MVP).</td>
+    </tr>
+</table>
 
-## About Laravel
+## 2. Mapeamento dos Problemas (O que estamos resolvendo)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Os desafios identificados que exigem uma solução integrada em tecnologia, conscientização e infraestrutura.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<table width=100%>
+    <tr>
+        <th>Categoria do Problema</th>
+        <th>Descrição Detalhada</th>
+    </tr>
+    <tr>
+        <td>Acesso e Agendamento</td>
+        <td>Baixa disponibilidade de agendamento e longas esperas para consultas/exames</td>
+    </tr>
+    <tr>
+        <td>Inclusão Geográfica</td>
+        <td>Falta de acessibilidade para pessoas em povoados e áreas rurais afastadas.</td>
+    </tr>
+    <tr>
+        <td>Saúde Preventiva</td>
+        <td>Aumento de doenças evitáveis devido à escassez de campanhas preventivas contínuas.</td>
+    </tr>
+    <tr>
+        <td>Comunicação</td>
+        <td>Falta de conscientização popular e ausência de canais de comunicação diretos e eficazes.</td>
+    </tr>
+        <tr>
+        <td>Gestão e Estrutura</td>
+        <td>Aglomerações frequentes, capacidade limitada dos postos e dificuldade na gestão de informações (vacinas, exames, profissionais).</td>
+    </tr>
+</table>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 3. Estrutura da Solução e Plano de Implementação
 
-## Learning Laravel
+A solução é baseada em três pilares integrados, com uma estratégia de entrega modular e faseada.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Pilares da Solução**
+<table width=100%>
+    <tr>
+        <th>Pilar</th>
+        <th>Foco</th>
+    </tr>
+    <tr>
+        <td>Tecnologia</td>
+        <td>Implantação de um sistema de notificação e agendamento digital.</td>
+    </tr>
+    <tr>
+        <td>Infraestrutura</td>
+        <td>Ampliação do atendimento via Unidades Móveis de Saúde e modernização dos postos.</td>
+    </tr>
+    <tr>
+        <td>Conscientização</td>
+        <td>Ações permanentes de informação e prevenção (escolas, rádios, redes sociais).</td>
+    </tr>
+</table>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**Funcionalidade (Esposo Final)**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+O aplicativo e a plataforma digital terão, progressivamente, as seguintes capacidades:
 
-## Laravel Sponsors
+<table width=100%>
+    <tr>
+        <th>Funcionalidade</th>
+        <th>Benefício para o Usuário</th>
+    </tr>
+    <tr>
+        <td>Agendamento Online</td>
+        <td>Marcação de consultas, exames e vacinas de forma rápida.</td>
+    </tr>
+    <tr>
+        <td>Notificações Automáticas</td>
+        <td>Lembretes personalizados sobre campanhas e prazos importantes (vacinação).</td>
+    </tr>
+    <tr>
+        <td>Painel Administrativo</td>
+        <td>Acompanhamento do fluxo de atendimentos e gestão de recursos.</td>
+    </tr>
+    <tr>
+        <td>Modo Offline</td>
+        <td>Garante o acesso a informações essenciais em locais com baixa ou nenhuma conectividade.</td>
+    </tr>
+    <tr>
+        <td>Integração Comunitária</td>
+        <td>Canal de comunicação com agentes de saúde e integração com mídias locais (rádios/escolas).</td>
+    </tr>
+</table>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+**Estratégia de Entrega (Plano de Expansão Faseada)**
 
-### Premium Partners
+O projeto será implementado em etapas controladas para garantir estabilidade e validação contínua.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+<table width=100%>
+    <tr>
+        <th>Fase</th>
+        <th>Escopo e Foco</th>
+        <th>Objetivos</th>
+    </tr>
+    <tr>
+        <td>Fase 1 (MVP/Piloto)</td>
+        <td>Unidade de Saúde de um bairro da capital</td>
+        <td>Apresentar um MVP funcional e validado. Funcionalidades Mínimas: Carteira Digital de Vacinação e Alerta de Vacinas Próximas ao Vencimento.</td>
+    </tr>
+    <tr>
+        <td>Fase 2 (Expansão Municipal)</td>
+        <td>Cobertura total da cidade de Porto Velh</td>
+        <td>Adição progressiva das demais funcionalidades (agendamento, notificações, etc.) e escalonamento do sistema.</td>
+    </tr>
+    <tr>
+        <td>Fase 3 (Expansão Regional)</td>
+        <td>Inclusão de vilarejos, distritos e áreas remotas.</td>
+        <td>Garantir a cobertura total, integrando Unidades Móveis de Saúde e utilizando o Modo Offline do aplicativo.</td>
+    </tr>
+</table>
 
-## Contributing
+**Conclusão**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Com essa abordagem estruturada e tecnologicamente moderna (Laravel/MySQL), busca-se construir uma rede de saúde mais acessível, inteligente e humana, priorizando o cuidado preventivo e o atendimento de qualidade para toda a população, independentemente de sua localização.
