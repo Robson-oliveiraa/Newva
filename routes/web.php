@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\CarteiraVacinaController;
 use App\Http\Controllers\PostoSaudeController;
+use App\Http\Controllers\DemasApiController;
 use Illuminate\Support\Facades\Route;
 
 // ========================================
@@ -82,6 +83,9 @@ Route::middleware(['auth', 'verified', 'has.any.role', 'route.access'])->group(f
     // ========================================
     Route::prefix('postos-saude')->name('postos-saude.')->group(function () {
         Route::get('/', [PostoSaudeController::class, 'index'])->name('index');
+        Route::get('/bairro/{bairro}', [PostoSaudeController::class, 'porBairro'])->name('bairro');
+        Route::get('/proximos', [PostoSaudeController::class, 'proximos'])->name('proximos');
+        Route::get('/{id}', [PostoSaudeController::class, 'show'])->name('show');
         
         // Apenas administradores podem gerenciar postos
         Route::middleware(['role:administrator'])->group(function () {
@@ -91,8 +95,6 @@ Route::middleware(['auth', 'verified', 'has.any.role', 'route.access'])->group(f
             Route::put('/{postoSaude}', [PostoSaudeController::class, 'update'])->name('update');
             Route::delete('/{postoSaude}', [PostoSaudeController::class, 'destroy'])->name('destroy');
         });
-        
-        Route::get('/{postoSaude}', [PostoSaudeController::class, 'show'])->name('show');
     });
 });
 
@@ -119,3 +121,20 @@ Route::middleware(['auth', 'role:administrator'])
             ->name('register.store')
             ->middleware('throttle:5,1');
     });
+
+// ========================================
+// ROTAS DA API DEMAS - Acesso público para consulta
+// ========================================
+Route::prefix('api/demas')->name('demas.')->group(function () {
+    // Buscar todas as unidades de saúde
+    Route::get('/unidades-saude', [DemasApiController::class, 'getUnidadesSaude'])->name('unidades-saude');
+    
+    // Buscar unidades por bairro
+    Route::get('/unidades-saude/bairro/{bairro}', [DemasApiController::class, 'getUnidadesPorBairro'])->name('unidades-bairro');
+    
+    // Buscar unidades próximas
+    Route::get('/unidades-saude/proximas', [DemasApiController::class, 'getUnidadesProximas'])->name('unidades-proximas');
+    
+    // Buscar detalhes de uma unidade específica
+    Route::get('/unidades-saude/{id}', [DemasApiController::class, 'getUnidadeDetalhes'])->name('unidade-detalhes');
+});
