@@ -1,50 +1,49 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800">
-            {{ __('Postos de Saúde - Porto Velho') }}
-        </h2>
-    </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white">
+            <div class="bg-white rounded-lg shadow-md">
                 <div class="p-6 text-gray-900">
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium mb-2">Localização dos Postos de Saúde</h3>
-                        <p class="text-gray-600">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Localização dos Postos de Saúde</h3>
+                        <p class="text-gray-600 text-base">
                             Encontre os postos de saúde mais próximos de você em Porto Velho
                         </p>
                     </div>
 
                     <!-- Mapa -->
-                    <div class="mb-6">
-                        <div id="map" style="height: 500px; width: 100%; border-radius: 8px;"></div>
-                    </div>
+                    {{-- <div class="mb-6">
+                        <div id="map"
+                            style="height: 500px; width: 100%; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        </div>
+                    </div> --}}
 
                     <!-- Lista de Postos -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        @foreach($postos as $posto)
-                            <div class="bg-gray-50">
-                                <div class="flex items-start justify-between mb-2">
-                                    <h4 class="font-semibold text-gray-900">{{ $posto['nome'] }}</h4>
-                                    <span class="px-2 py-1 text-xs font-semibold rounded-full
-                                        @if($posto['tipo'] === 'UPA') bg-red-100 text-red-800
-                                        @elseif($posto['tipo'] === 'Hospital') bg-purple-100 text-purple-800
-                                        @else bg-blue-100 text-blue-800 @endif">
-                                        {{ $posto['tipo'] }}
-                                    </span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach ($postos as $posto)
+                            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                                <div class="p-4">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <h4 class="font-bold text-lg text-gray-800">{{ $posto['nome'] }}</h4>
+                                        <span
+                                            class="px-3 py-1 text-xs font-semibold rounded-full
+                                            @if ($posto['tipo'] === 'UPA') bg-red-100 text-red-800
+                                            @elseif($posto['tipo'] === 'Hospital') bg-purple-100 text-purple-800
+                                            @else bg-blue-100 text-blue-800 @endif">
+                                            {{ $posto['tipo'] }}
+                                        </span>
+                                    </div>
+
+                                    <div class="space-y-2 text-sm text-gray-600">
+                                        <p><strong>Endereço:</strong> {{ $posto['endereco'] }}</p>
+                                        <p><strong>Telefone:</strong> {{ $posto['telefone'] }}</p>
+                                        <p><strong>Horário:</strong> {{ $posto['horario'] }}</p>
+                                    </div>
+
+                                    {{-- <button onclick="focusOnMarker({{ $posto['lat'] }}, {{ $posto['lng'] }})"
+                                        class="mt-4 w-full bg-blue-600 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 text-sm">
+                                        Ver no Mapa
+                                    </button> --}}
                                 </div>
-                                
-                                <div class="space-y-1 text-sm text-gray-600">
-                                    <p><strong>Endereço:</strong> {{ $posto['endereco'] }}</p>
-                                    <p><strong>Telefone:</strong> {{ $posto['telefone'] }}</p>
-                                    <p><strong>Horário:</strong> {{ $posto['horario'] }}</p>
-                                </div>
-                                
-                                <button onclick="focusOnMarker({{ $posto['lat'] }}, {{ $posto['lng'] }})" 
-                                        class="mt-3 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm">
-                                    Ver no Mapa
-                                </button>
                             </div>
                         @endforeach
                     </div>
@@ -73,9 +72,9 @@
 
         // Adicionar marcadores para cada posto
         postos.forEach(function(posto) {
-            var iconColor = posto.tipo === 'UPA' ? 'red' : 
-                           posto.tipo === 'Hospital' ? 'purple' : 'blue';
-            
+            var iconColor = posto.tipo === 'UPA' ? 'red' :
+                posto.tipo === 'Hospital' ? 'purple' : 'blue';
+
             var marker = L.marker([posto.lat, posto.lng], {
                 icon: L.divIcon({
                     className: 'custom-div-icon',
@@ -107,7 +106,7 @@
             navigator.geolocation.getCurrentPosition(function(position) {
                 var userLat = position.coords.latitude;
                 var userLng = position.coords.longitude;
-                
+
                 // Adicionar marcador da localização do usuário
                 L.marker([userLat, userLng], {
                     icon: L.divIcon({
@@ -126,7 +125,54 @@
             background: transparent !important;
             border: none !important;
         }
+
+        /* Ajustes para alinhar com o estilo da prefeitura */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .bg-white {
+            background-color: #ffffff;
+        }
+
+        .text-gray-800 {
+            color: #1f2937;
+        }
+
+        .text-gray-600 {
+            color: #4b5563;
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        .shadow-md {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .hover\:shadow-lg:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .bg-blue-600 {
+            background-color: #005773;
+        }
+
+        .hover\:bg-blue-800:hover {
+            background-color: #003d52;
+        }
+
+        .transition-colors {
+            transition-property: background-color, border-color, color, fill, stroke;
+        }
+
+        .transition-shadow {
+            transition-property: box-shadow;
+        }
+
+        .duration-300 {
+            transition-duration: 300ms;
+        }
     </style>
 </x-app-layout>
-
-

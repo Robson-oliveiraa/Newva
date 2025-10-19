@@ -1,73 +1,73 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800">
+        <h2 class="font-semibold text-lg sm:text-xl text-blue-900">
             {{ __('Adicionar Vacina à Carteira') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white">
-                <div class="p-6 text-gray-900">
-                    <form method="POST" action="{{ route('carteira-vacina.store') }}">
+    <div class="py-8 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white shadow-md sm:rounded-lg">
+                <div class="p-4 sm:p-6 text-gray-900">
+                    <form method="POST" action="{{ route('carteira-vacina.store') }}"
+                        class="space-y-6 sm:space-y-5 max-w-lg mx-auto">
                         @csrf
-                        
-                        <div class="mb-4">
-                            <label for="vacina_id" class="block text-sm font-medium text-gray-700">
+
+                        <div>
+                            <label for="vacina_id" class="block text-sm sm:text-base font-medium text-gray-700 mb-1.5">
                                 Vacina
                             </label>
-                            <select name="vacina_id" 
-                                    id="vacina_id"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    required>
+                            <select name="vacina_id" id="vacina_id"
+                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base py-2.5 sm:py-3"
+                                required aria-describedby="vacina_id-error">
                                 <option value="">Selecione uma vacina</option>
-                                @foreach($vacinas as $vacina)
-                                    <option value="{{ $vacina->id }}" {{ old('vacina_id') == $vacina->id ? 'selected' : '' }}>
+                                @foreach ($vacinas as $vacina)
+                                    <option value="{{ $vacina->id }}"
+                                        {{ old('vacina_id') == $vacina->id ? 'selected' : '' }}>
                                         {{ $vacina->nome }} - {{ $vacina->descricao }}
                                     </option>
                                 @endforeach
                             </select>
                             @error('vacina_id')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-xs sm:text-sm text-red-600" id="vacina_id-error">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="mb-4">
-                            <label for="data_aplicacao" class="block text-sm font-medium text-gray-700">
+                        <div>
+                            <label for="data_aplicacao"
+                                class="block text-sm sm:text-base font-medium text-gray-700 mb-1.5">
                                 Data de Aplicação
                             </label>
-                            <input type="date" 
-                                   name="data_aplicacao" 
-                                   id="data_aplicacao"
-                                   value="{{ old('data_aplicacao') }}"
-                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                   required>
+                            <input type="date" name="data_aplicacao" id="data_aplicacao"
+                                value="{{ old('data_aplicacao') }}"
+                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base py-2.5 sm:py-3"
+                                required aria-describedby="data_aplicacao-error">
                             @error('data_aplicacao')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-xs sm:text-sm text-red-600" id="data_aplicacao-error">
+                                    {{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="mb-6">
-                            <label for="vencimento" class="block text-sm font-medium text-gray-700">
+                        <div>
+                            <label for="vencimento" class="block text-sm sm:text-base font-medium text-gray-700 mb-1.5">
                                 Data de Vencimento (opcional)
                             </label>
-                            <input type="date" 
-                                   name="vencimento" 
-                                   id="vencimento"
-                                   value="{{ old('vencimento') }}"
-                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <input type="date" name="vencimento" id="vencimento" value="{{ old('vencimento') }}"
+                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base py-2.5 sm:py-3"
+                                aria-describedby="vencimento-error">
                             @error('vencimento')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-xs sm:text-sm text-red-600" id="vencimento-error">{{ $message }}
+                                </p>
                             @enderror
                         </div>
 
-                        <div class="flex items-center justify-end">
-                            <a href="{{ route('carteira-vacina.index') }}" 
-                               class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-4 sm:gap-x-6">
+                            <a href="{{ route('carteira-vacina.index') }}"
+                                class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2.5 px-4 rounded-md text-sm sm:text-base text-center transition-colors">
                                 Cancelar
                             </a>
-                            <button type="submit" 
-                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            <button type="submit"
+                                class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-4 rounded-md text-sm sm:text-base transition-colors">
                                 Adicionar Vacina
                             </button>
                         </div>

@@ -4,28 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateCarteiraVacinaTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
-        Schema::create('carteira_vacinas', function (Blueprint $table) {
+        Schema::create('carteira_vacina', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('vacina_id')->constrained('vacinas')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('vacina_id')->constrained()->onDelete('cascade');
             $table->date('data_aplicacao');
-            $table->date('vencimento');
+            $table->date('vencimento')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('carteira_vacinas');
+        Schema::dropIfExists('carteira_vacina');
     }
-};
+}

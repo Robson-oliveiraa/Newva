@@ -81,7 +81,7 @@
                     x-show="show"
                     x-transition
                     x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
+                     class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-4 rounded-md text-sm sm:text-base transition-colors"
                 >Salvo.</p>
             @endif
         </div>
