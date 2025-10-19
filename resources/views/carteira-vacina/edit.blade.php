@@ -19,6 +19,27 @@
                         @method('PUT')
                         
                         <div class="mb-4">
+                            <label for="user_id" class="block text-sm font-medium text-gray-700">
+                                Paciente
+                            </label>
+                            <select name="user_id" 
+                                    id="user_id"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                <option value="">Selecione um paciente</option>
+                                @foreach($usuarios as $usuario)
+                                    <option value="{{ $usuario->id }}" 
+                                            {{ old('user_id', $carteiraVacina->user_id) == $usuario->id ? 'selected' : '' }}>
+                                        {{ $usuario->name }} ({{ $usuario->email }})
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('user_id')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
                             <label for="vacina_id" class="block text-sm font-medium text-gray-700">
                                 Vacina
                             </label>
@@ -55,17 +76,9 @@
                         </div>
 
                         <div class="mb-6">
-                            <label for="vencimento" class="block text-sm font-medium text-gray-700">
-                                Data de Vencimento (opcional)
-                            </label>
-                            <input type="date" 
-                                   name="vencimento" 
-                                   id="vencimento"
-                                   value="{{ old('vencimento', $carteiraVacina->vencimento) }}"
-                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                            @error('vencimento')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                            <p class="text-sm text-gray-600">
+                                <strong>Nota:</strong> A data de vencimento será recalculada automaticamente baseada na validade da vacina selecionada.
+                            </p>
                         </div>
 
                         <div class="flex items-center justify-end">

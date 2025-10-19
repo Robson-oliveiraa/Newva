@@ -6,6 +6,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\CarteiraVacinaController;
 use App\Http\Controllers\PostoSaudeController;
+use App\Http\Controllers\MedicoController;
+use App\Http\Controllers\VacinaApplicationController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DemasApiController;
 use Illuminate\Support\Facades\Route;
 
 // ========================================
@@ -27,9 +31,7 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth', 'verified', 'has.any.role', 'route.access'])->group(function () {
     
     // Dashboard - Acesso para todos os usuários autenticados
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     // ========================================
     // PERFIL DO USUÁRIO - Acesso para todos os usuários autenticados
@@ -63,18 +65,18 @@ Route::middleware(['auth', 'verified', 'has.any.role', 'route.access'])->group(f
     // CARTEIRA DE VACINA - Acesso baseado em roles
     // ========================================
     Route::prefix('carteira-vacina')->name('carteira-vacina.')->group(function () {
-        // Enfermeiros e Administradores podem criar, editar e deletar
-        Route::middleware(['has.role:enfermeiro,administrator'])->group(function () {
-            Route::get('/create', [CarteiraVacinaController::class, 'create'])->name('create');
-            Route::post('/', [CarteiraVacinaController::class, 'store'])->name('store');
-            Route::get('/{carteiraVacina}/edit', [CarteiraVacinaController::class, 'edit'])->name('edit');
-            Route::put('/{carteiraVacina}', [CarteiraVacinaController::class, 'update'])->name('update');
-            Route::delete('/{carteiraVacina}', [CarteiraVacinaController::class, 'destroy'])->name('destroy');
+        // Médicos, Enfermeiros e Administradores podem criar, editar e deletar
+        Route::middleware(['has.role:medico,enfermeiro,administrator'])->group(function () {
+            Route::get('/create', [VacinaApplicationController::class, 'create'])->name('create');
+            Route::post('/', [VacinaApplicationController::class, 'store'])->name('store');
+            Route::get('/{carteiraVacina}/edit', [VacinaApplicationController::class, 'edit'])->name('edit');
+            Route::put('/{carteiraVacina}', [VacinaApplicationController::class, 'update'])->name('update');
+            Route::delete('/{carteiraVacina}', [VacinaApplicationController::class, 'destroy'])->name('destroy');
         });
         
         // Todos os usuários autenticados podem listar e visualizar
-        Route::get('/', [CarteiraVacinaController::class, 'index'])->name('index');
-        Route::get('/{carteiraVacina}', [CarteiraVacinaController::class, 'show'])->name('show');
+        Route::get('/', [VacinaApplicationController::class, 'index'])->name('index');
+        Route::get('/{carteiraVacina}', [VacinaApplicationController::class, 'show'])->name('show');
     });
     
     // ========================================
@@ -110,6 +112,16 @@ Route::middleware(['auth', 'role:administrator'])
         
         // Gerenciamento de usuários
         Route::resource('users', AdminController::class);
+        
+        // Gerenciamento de médicos
+        Route::resource('medicos', MedicoController::class);
+        
+        // Dashboard DEMAS
+        Route::get('demas', [DemasApiController::class, 'dashboard'])->name('demas.dashboard');
+        Route::get('demas/unidades', [DemasApiController::class, 'getUnidadesPortoVelho'])->name('demas.unidades');
+        Route::get('demas/vacinas', [DemasApiController::class, 'getVacinasDistribuidas'])->name('demas.vacinas');
+        Route::get('demas/rondonia', [DemasApiController::class, 'getDadosRondonia'])->name('demas.rondonia');
+        Route::post('demas/clear-cache', [DemasApiController::class, 'clearCache'])->name('demas.clear-cache');
         
         // Registro de novos usuários (apenas para administradores)
         Route::get('register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])

@@ -39,6 +39,12 @@ class PermissionSeeder extends Seeder
             'postos-saude.update' => 'Editar postos de saúde',
             'postos-saude.delete' => 'Deletar postos de saúde',
             
+            // Permissões de médicos
+            'medicos.create' => 'Criar médicos',
+            'medicos.read' => 'Visualizar médicos',
+            'medicos.update' => 'Editar médicos',
+            'medicos.delete' => 'Deletar médicos',
+            
             // Permissões administrativas
             'admin.access' => 'Acesso ao painel administrativo',
             'admin.dashboard' => 'Visualizar dashboard administrativo',
@@ -66,7 +72,7 @@ class PermissionSeeder extends Seeder
             $adminRole->syncPermissions(Permission::all());
         }
 
-        // Médico - permissões de consultas e visualização
+        // Médico - permissões de consultas e aplicação de vacinas
         $medicoRole = Role::where('name', 'medico')->first();
         if ($medicoRole) {
             $medicoPermissions = Permission::whereIn('name', [
@@ -74,8 +80,11 @@ class PermissionSeeder extends Seeder
                 'consultas.read',
                 'consultas.update',
                 'consultas.delete',
+                'carteira-vacina.create',
                 'carteira-vacina.read',
-                'postos-saude.read'
+                'carteira-vacina.update',
+                'postos-saude.read',
+                'medicos.read'
             ])->get();
             $medicoRole->syncPermissions($medicoPermissions);
         }
@@ -108,4 +117,5 @@ class PermissionSeeder extends Seeder
         }
     }
 }
+
 

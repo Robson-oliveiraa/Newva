@@ -118,3 +118,4 @@ php artisan user:assign-role email@exemplo.com administrator
 - ✅ **Interface administrativa funcional**
 
 O sistema agora está **100% seguro** e não permite mais registro público não autorizado!
+

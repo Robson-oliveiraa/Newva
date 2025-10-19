@@ -17,12 +17,14 @@ return [
             'consultas' => 'c,r,u,d',
             'carteira-vacina' => 'c,r,u,d',
             'postos-saude' => 'c,r,u,d',
+            'medicos' => 'c,r,u,d',
             'admin' => 'c,r,u,d'
         ],
         'medico' => [
             'consultas' => 'c,r,u,d',
-            'carteira-vacina' => 'r',
-            'postos-saude' => 'r'
+            'carteira-vacina' => 'c,r,u',
+            'postos-saude' => 'r',
+            'medicos' => 'r'
         ],
         'enfermeiro' => [
             'consultas' => 'r',

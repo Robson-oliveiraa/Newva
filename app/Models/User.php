@@ -65,4 +65,9 @@ class User extends Authenticatable implements LaratrustUser
         return $this->hasMany(Consulta::class);
     }
 
+    public function medico()
+    {
+        return $this->hasOne(Medico::class);
+    }
+
 }

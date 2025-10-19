@@ -12,6 +12,7 @@ class CarteiraVacina extends Model
     protected $fillable = [
         'user_id',
         'vacina_id',
+        'medico_id',
         'data_aplicacao',
         'vencimento',
     ];
@@ -24,5 +25,10 @@ class CarteiraVacina extends Model
     public function vacina()
     {
         return $this->belongsTo(Vacinas::class, 'vacina_id');
+    }
+
+    public function medico()
+    {
+        return $this->belongsTo(Medico::class, 'medico_id');
     }
 }

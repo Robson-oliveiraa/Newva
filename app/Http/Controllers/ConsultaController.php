@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Consulta;
+use App\Models\Medico;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +16,19 @@ class ConsultaController extends Controller
      */
     public function index(): View
     {
-        $consultas = auth()->user()->consultas()->orderBy('data_hora', 'desc')->paginate(10);
+        $user = auth()->user();
+        
+        if ($user->hasRole('medico')) {
+            // Médico vê suas consultas
+            $consultas = Consulta::with(['user'])
+                ->where('medico_id', $user->medico->id)
+                ->orderBy('data_hora', 'desc')
+                ->paginate(10);
+        } else {
+            // Usuário vê suas próprias consultas
+            $consultas = $user->consultas()->with(['medico.user'])->orderBy('data_hora', 'desc')->paginate(10);
+        }
+        
         return view('consultas.index', compact('consultas'));
     }
 
@@ -24,7 +37,8 @@ class ConsultaController extends Controller
      */
     public function create(): View
     {
-        return view('consultas.create');
+        $medicos = Medico::with('user')->where('ativo', true)->get();
+        return view('consultas.create', compact('medicos'));
     }
 
     /**
@@ -33,6 +47,7 @@ class ConsultaController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'medico_id' => ['required', 'exists:medicos,id'],
             'especialidade' => ['required', 'string', 'max:255'],
             'data_hora' => ['required', 'date', 'after:now'],
             'local' => ['required', 'string', 'max:255'],
@@ -40,10 +55,12 @@ class ConsultaController extends Controller
         ]);
 
         auth()->user()->consultas()->create([
+            'medico_id' => $request->medico_id,
             'especialidade' => $request->especialidade,
             'data_hora' => $request->data_hora,
             'local' => $request->local,
             'observacoes' => $request->observacoes,
+            'status' => 'agendada',
         ]);
 
         return redirect()->route('consultas.index')
@@ -73,7 +90,8 @@ class ConsultaController extends Controller
             abort(403);
         }
 
-        return view('consultas.edit', compact('consulta'));
+        $medicos = Medico::with('user')->where('ativo', true)->get();
+        return view('consultas.edit', compact('consulta', 'medicos'));
     }
 
     /**
@@ -87,6 +105,7 @@ class ConsultaController extends Controller
         }
 
         $request->validate([
+            'medico_id' => ['required', 'exists:medicos,id'],
             'especialidade' => ['required', 'string', 'max:255'],
             'data_hora' => ['required', 'date', 'after:now'],
             'local' => ['required', 'string', 'max:255'],
@@ -94,6 +113,7 @@ class ConsultaController extends Controller
         ]);
 
         $consulta->update([
+            'medico_id' => $request->medico_id,
             'especialidade' => $request->especialidade,
             'data_hora' => $request->data_hora,
             'local' => $request->local,
