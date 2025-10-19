@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800">
             {{ __('Editar Usuário') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="bg-white">
+                <div class="p-6 text-gray-900">
                     <div class="mb-6">
                         <a href="{{ route('admin.users.show', $user) }}" 
                            class="text-blue-600 hover:text-blue-800">← Voltar para Detalhes</a>
@@ -20,14 +20,14 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label for="name" class="block text-sm font-medium text-gray-700">
                                     Nome Completo
                                 </label>
                                 <input type="text" 
                                        name="name" 
                                        id="name"
                                        value="{{ old('name', $user->name) }}"
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                        required>
                                 @error('name')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -35,14 +35,14 @@
                             </div>
 
                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label for="email" class="block text-sm font-medium text-gray-700">
                                     Email
                                 </label>
                                 <input type="email" 
                                        name="email" 
                                        id="email"
                                        value="{{ old('email', $user->email) }}"
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                        required>
                                 @error('email')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -50,14 +50,14 @@
                             </div>
 
                             <div>
-                                <label for="cpf" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label for="cpf" class="block text-sm font-medium text-gray-700">
                                     CPF
                                 </label>
                                 <input type="text" 
                                        name="cpf" 
                                        id="cpf"
                                        value="{{ old('cpf', $user->cpf) }}"
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                        required>
                                 @error('cpf')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -65,12 +65,12 @@
                             </div>
 
                             <div>
-                                <label for="sexo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label for="sexo" class="block text-sm font-medium text-gray-700">
                                     Sexo
                                 </label>
                                 <select name="sexo" 
                                         id="sexo"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         required>
                                     <option value="">Selecione</option>
                                     <option value="M" {{ old('sexo', $user->sexo) == 'M' ? 'selected' : '' }}>Masculino</option>
@@ -83,7 +83,7 @@
                             </div>
 
                             <div>
-                                <label for="idade" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label for="idade" class="block text-sm font-medium text-gray-700">
                                     Idade
                                 </label>
                                 <input type="number" 
@@ -92,7 +92,7 @@
                                        value="{{ old('idade', $user->idade) }}"
                                        min="1" 
                                        max="150"
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                        required>
                                 @error('idade')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -100,12 +100,12 @@
                             </div>
 
                             <div>
-                                <label for="role" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label for="role" class="block text-sm font-medium text-gray-700">
                                     Papel
                                 </label>
                                 <select name="role" 
                                         id="role"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         required>
                                     <option value="">Selecione</option>
                                     <option value="usuario" {{ old('role', $user->roles->first()->name ?? '') == 'usuario' ? 'selected' : '' }}>Usuário</option>

@@ -11,7 +11,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'role' => \App\Http\Middleware\CheckRole::class,
+            'permission' => \App\Http\Middleware\CheckPermission::class,
+            'has.role' => \App\Http\Middleware\EnsureUserHasRole::class,
+            'has.any.role' => \App\Http\Middleware\EnsureUserHasAnyRole::class,
+            'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+            'not.authenticated' => \App\Http\Middleware\EnsureUserNotAuthenticated::class,
+            'throttle.auth' => \App\Http\Middleware\ThrottleAuthAttempts::class,
+            'csrf.validate' => \App\Http\Middleware\ValidateCsrfToken::class,
+            'route.access' => \App\Http\Middleware\CheckRouteAccess::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

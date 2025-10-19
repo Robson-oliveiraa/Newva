@@ -5,30 +5,117 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\CarteiraVacinaController;
+use App\Http\Controllers\PostoSaudeController;
 use Illuminate\Support\Facades\Route;
 
+// ========================================
+// ROTAS PÚBLICAS
+// ========================================
+
+// Redireciona a raiz para o login
 Route::get('/', [AuthenticatedSessionController::class, 'create'])
-        ->name('login');
+    ->name('login');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    // Rotas para consultas
-    Route::resource('consultas', ConsultaController::class);
-    
-    // Rotas para carteira de vacina
-    Route::resource('carteira-vacina', CarteiraVacinaController::class);
-});
-
-// Rotas administrativas (apenas para admins)
-Route::middleware(['auth', 'role:administrator'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('users', AdminController::class);
-});
-
+// ========================================
+// ROTAS DE AUTENTICAÇÃO
+// ========================================
 require __DIR__.'/auth.php';
+
+// ========================================
+// ROTAS PROTEGIDAS - AUTENTICAÇÃO OBRIGATÓRIA
+// ========================================
+Route::middleware(['auth', 'verified', 'has.any.role', 'route.access'])->group(function () {
+    
+    // Dashboard - Acesso para todos os usuários autenticados
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    
+    // ========================================
+    // PERFIL DO USUÁRIO - Acesso para todos os usuários autenticados
+    // ========================================
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'show'])->name('show');
+        Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+    });
+    
+    // ========================================
+    // CONSULTAS - Acesso baseado em roles
+    // ========================================
+    Route::prefix('consultas')->name('consultas.')->group(function () {
+        // Médicos e Administradores podem criar, editar e deletar
+        Route::middleware(['has.role:medico,administrator'])->group(function () {
+            Route::get('/create', [ConsultaController::class, 'create'])->name('create');
+            Route::post('/', [ConsultaController::class, 'store'])->name('store');
+            Route::get('/{consulta}/edit', [ConsultaController::class, 'edit'])->name('edit');
+            Route::put('/{consulta}', [ConsultaController::class, 'update'])->name('update');
+            Route::delete('/{consulta}', [ConsultaController::class, 'destroy'])->name('destroy');
+        });
+        
+        // Todos os usuários autenticados podem listar e visualizar
+        Route::get('/', [ConsultaController::class, 'index'])->name('index');
+        Route::get('/{consulta}', [ConsultaController::class, 'show'])->name('show');
+    });
+    
+    // ========================================
+    // CARTEIRA DE VACINA - Acesso baseado em roles
+    // ========================================
+    Route::prefix('carteira-vacina')->name('carteira-vacina.')->group(function () {
+        // Enfermeiros e Administradores podem criar, editar e deletar
+        Route::middleware(['has.role:enfermeiro,administrator'])->group(function () {
+            Route::get('/create', [CarteiraVacinaController::class, 'create'])->name('create');
+            Route::post('/', [CarteiraVacinaController::class, 'store'])->name('store');
+            Route::get('/{carteiraVacina}/edit', [CarteiraVacinaController::class, 'edit'])->name('edit');
+            Route::put('/{carteiraVacina}', [CarteiraVacinaController::class, 'update'])->name('update');
+            Route::delete('/{carteiraVacina}', [CarteiraVacinaController::class, 'destroy'])->name('destroy');
+        });
+        
+        // Todos os usuários autenticados podem listar e visualizar
+        Route::get('/', [CarteiraVacinaController::class, 'index'])->name('index');
+        Route::get('/{carteiraVacina}', [CarteiraVacinaController::class, 'show'])->name('show');
+    });
+    
+    // ========================================
+    // POSTOS DE SAÚDE - Acesso para todos os usuários autenticados
+    // ========================================
+    Route::prefix('postos-saude')->name('postos-saude.')->group(function () {
+        Route::get('/', [PostoSaudeController::class, 'index'])->name('index');
+        
+        // Apenas administradores podem gerenciar postos
+        Route::middleware(['role:administrator'])->group(function () {
+            Route::get('/create', [PostoSaudeController::class, 'create'])->name('create');
+            Route::post('/', [PostoSaudeController::class, 'store'])->name('store');
+            Route::get('/{postoSaude}/edit', [PostoSaudeController::class, 'edit'])->name('edit');
+            Route::put('/{postoSaude}', [PostoSaudeController::class, 'update'])->name('update');
+            Route::delete('/{postoSaude}', [PostoSaudeController::class, 'destroy'])->name('destroy');
+        });
+        
+        Route::get('/{postoSaude}', [PostoSaudeController::class, 'show'])->name('show');
+    });
+});
+
+// ========================================
+// ROTAS ADMINISTRATIVAS - Apenas para Administradores
+// ========================================
+Route::middleware(['auth', 'role:administrator'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        // Dashboard administrativo
+        Route::get('/', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+        
+        // Gerenciamento de usuários
+        Route::resource('users', AdminController::class);
+        
+        // Registro de novos usuários (apenas para administradores)
+        Route::get('register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])
+            ->name('register');
+        
+        Route::post('register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])
+            ->name('register.store')
+            ->middleware('throttle:5,1');
+    });

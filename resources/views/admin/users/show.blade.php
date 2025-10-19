@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800">
             {{ __('Detalhes do Usuário') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="bg-white">
+                <div class="p-6 text-gray-900">
                     <div class="mb-6">
                         <a href="{{ route('admin.users.index') }}" 
                            class="text-blue-600 hover:text-blue-800">← Voltar para Usuários</a>
@@ -16,38 +16,38 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">
                                 Informações Pessoais
                             </h3>
                             
                             <dl class="space-y-3">
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Nome:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">{{ $user->name }}</dd>
+                                    <dt class="text-sm font-medium text-gray-500">Nome:</dt>
+                                    <dd class="text-sm text-gray-900">{{ $user->name }}</dd>
                                 </div>
                                 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Email:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">{{ $user->email }}</dd>
+                                    <dt class="text-sm font-medium text-gray-500">Email:</dt>
+                                    <dd class="text-sm text-gray-900">{{ $user->email }}</dd>
                                 </div>
                                 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">CPF:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">{{ $user->cpf }}</dd>
+                                    <dt class="text-sm font-medium text-gray-500">CPF:</dt>
+                                    <dd class="text-sm text-gray-900">{{ $user->cpf }}</dd>
                                 </div>
                                 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Sexo:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">{{ $user->sexo }}</dd>
+                                    <dt class="text-sm font-medium text-gray-500">Sexo:</dt>
+                                    <dd class="text-sm text-gray-900">{{ $user->sexo }}</dd>
                                 </div>
                                 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Idade:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">{{ $user->idade }} anos</dd>
+                                    <dt class="text-sm font-medium text-gray-500">Idade:</dt>
+                                    <dd class="text-sm text-gray-900">{{ $user->idade }} anos</dd>
                                 </div>
                                 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Papel:</dt>
+                                    <dt class="text-sm font-medium text-gray-500">Papel:</dt>
                                     <dd class="text-sm">
                                         @foreach($user->roles as $role)
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
@@ -61,7 +61,7 @@
                         </div>
 
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">
                                 Ações
                             </h3>
                             
@@ -84,12 +84,12 @@
 
                             @if($user->consultas->count() > 0)
                                 <div class="mt-6">
-                                    <h4 class="text-md font-medium text-gray-900 dark:text-gray-100 mb-2">
+                                    <h4 class="text-md font-medium text-gray-900">
                                         Consultas ({{ $user->consultas->count() }})
                                     </h4>
                                     <div class="space-y-2">
                                         @foreach($user->consultas->take(3) as $consulta)
-                                            <div class="text-sm text-gray-600 dark:text-gray-400">
+                                            <div class="text-sm text-gray-600">
                                                 {{ $consulta->especialidade }} - {{ \Carbon\Carbon::parse($consulta->data_hora)->format('d/m/Y') }}
                                             </div>
                                         @endforeach
@@ -102,12 +102,12 @@
 
                             @if($user->vacinasAplicadas->count() > 0)
                                 <div class="mt-6">
-                                    <h4 class="text-md font-medium text-gray-900 dark:text-gray-100 mb-2">
+                                    <h4 class="text-md font-medium text-gray-900">
                                         Vacinas ({{ $user->vacinasAplicadas->count() }})
                                     </h4>
                                     <div class="space-y-2">
                                         @foreach($user->vacinasAplicadas->take(3) as $vacina)
-                                            <div class="text-sm text-gray-600 dark:text-gray-400">
+                                            <div class="text-sm text-gray-600">
                                                 {{ $vacina->vacina->nome }} - {{ \Carbon\Carbon::parse($vacina->data_aplicacao)->format('d/m/Y') }}
                                             </div>
                                         @endforeach

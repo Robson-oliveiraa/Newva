@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             LaratrustSeeder::class,
+            PermissionSeeder::class,
             VacinaSeeder::class,
             UserSeeder::class,
         ]);

@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800">
             {{ __('Detalhes da Consulta') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="bg-white">
+                <div class="p-6 text-gray-900">
                     <div class="mb-6">
                         <a href="{{ route('consultas.index') }}" 
                            class="text-blue-600 hover:text-blue-800">← Voltar para Consultas</a>
@@ -16,39 +16,39 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">
                                 Informações da Consulta
                             </h3>
                             
                             <dl class="space-y-3">
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Especialidade:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">{{ $consulta->especialidade }}</dd>
+                                    <dt class="text-sm font-medium text-gray-500">Especialidade:</dt>
+                                    <dd class="text-sm text-gray-900">{{ $consulta->especialidade }}</dd>
                                 </div>
                                 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Data e Hora:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">
+                                    <dt class="text-sm font-medium text-gray-500">Data e Hora:</dt>
+                                    <dd class="text-sm text-gray-900">
                                         {{ \Carbon\Carbon::parse($consulta->data_hora)->format('d/m/Y H:i') }}
                                     </dd>
                                 </div>
                                 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Local:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">{{ $consulta->local }}</dd>
+                                    <dt class="text-sm font-medium text-gray-500">Local:</dt>
+                                    <dd class="text-sm text-gray-900">{{ $consulta->local }}</dd>
                                 </div>
                                 
                                 @if($consulta->observacoes)
                                     <div>
-                                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Observações:</dt>
-                                        <dd class="text-sm text-gray-900 dark:text-gray-100">{{ $consulta->observacoes }}</dd>
+                                        <dt class="text-sm font-medium text-gray-500">Observações:</dt>
+                                        <dd class="text-sm text-gray-900">{{ $consulta->observacoes }}</dd>
                                     </div>
                                 @endif
                             </dl>
                         </div>
 
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">
                                 Ações
                             </h3>
                             

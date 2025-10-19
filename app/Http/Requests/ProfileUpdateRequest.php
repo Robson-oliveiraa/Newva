@@ -25,6 +25,9 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'cpf' => ['required', 'string', 'max:14', Rule::unique(User::class)->ignore($this->user()->id)],
+            'sexo' => ['required', 'string', 'in:M,F,Outro'],
+            'idade' => ['required', 'integer', 'min:1', 'max:150'],
         ];
     }
 }

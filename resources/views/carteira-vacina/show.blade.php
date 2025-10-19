@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800">
             {{ __('Detalhes da Vacina') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="bg-white">
+                <div class="p-6 text-gray-900">
                     <div class="mb-6">
                         <a href="{{ route('carteira-vacina.index') }}" 
                            class="text-blue-600 hover:text-blue-800">← Voltar para Carteira</a>
@@ -16,31 +16,31 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">
                                 Informações da Vacina
                             </h3>
                             
                             <dl class="space-y-3">
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Nome da Vacina:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">{{ $carteiraVacina->vacina->nome }}</dd>
+                                    <dt class="text-sm font-medium text-gray-500">Nome da Vacina:</dt>
+                                    <dd class="text-sm text-gray-900">{{ $carteiraVacina->vacina->nome }}</dd>
                                 </div>
                                 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Descrição:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">{{ $carteiraVacina->vacina->descricao }}</dd>
+                                    <dt class="text-sm font-medium text-gray-500">Descrição:</dt>
+                                    <dd class="text-sm text-gray-900">{{ $carteiraVacina->vacina->descricao }}</dd>
                                 </div>
                                 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Data de Aplicação:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">
+                                    <dt class="text-sm font-medium text-gray-500">Data de Aplicação:</dt>
+                                    <dd class="text-sm text-gray-900">
                                         {{ \Carbon\Carbon::parse($carteiraVacina->data_aplicacao)->format('d/m/Y') }}
                                     </dd>
                                 </div>
                                 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Data de Vencimento:</dt>
-                                    <dd class="text-sm text-gray-900 dark:text-gray-100">
+                                    <dt class="text-sm font-medium text-gray-500">Data de Vencimento:</dt>
+                                    <dd class="text-sm text-gray-900">
                                         @if($carteiraVacina->vencimento)
                                             {{ \Carbon\Carbon::parse($carteiraVacina->vencimento)->format('d/m/Y') }}
                                         @else
@@ -50,7 +50,7 @@
                                 </div>
 
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Status:</dt>
+                                    <dt class="text-sm font-medium text-gray-500">Status:</dt>
                                     <dd class="text-sm">
                                         @if($carteiraVacina->vencimento && \Carbon\Carbon::parse($carteiraVacina->vencimento)->isPast())
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
@@ -71,7 +71,7 @@
                         </div>
 
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">
                                 Ações
                             </h3>
                             

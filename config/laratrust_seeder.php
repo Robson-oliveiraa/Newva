@@ -13,10 +13,26 @@ return [
 
     'roles_structure' => [
         'administrator' => [
+            'users' => 'c,r,u,d',
+            'consultas' => 'c,r,u,d',
+            'carteira-vacina' => 'c,r,u,d',
+            'postos-saude' => 'c,r,u,d',
             'admin' => 'c,r,u,d'
         ],
+        'medico' => [
+            'consultas' => 'c,r,u,d',
+            'carteira-vacina' => 'r',
+            'postos-saude' => 'r'
+        ],
+        'enfermeiro' => [
+            'consultas' => 'r',
+            'carteira-vacina' => 'c,r,u',
+            'postos-saude' => 'r'
+        ],
         'usuario' => [
-            'comum' => 'r'
+            'consultas' => 'c,r,u',
+            'carteira-vacina' => 'c,r',
+            'postos-saude' => 'r'
         ]
     ],
 

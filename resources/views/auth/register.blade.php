@@ -16,7 +16,7 @@
 
         <div class="mt-4">
             <x-input-label for="sexo" :value="__('Sexo')" />
-            <select id="sexo" name="sexo" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" required>
+            <select id="sexo" name="sexo" class="block mt-1 w-full border-gray-300" required>
                 <option value="">Selecione</option>
                 {{-- Colunas possíveis são 'M', 'F', 'Outro' --}}
                 <option value="M" {{ old('sexo') == 'M' ? 'selected' : '' }}>Masculino</option>
@@ -50,7 +50,7 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" :value="__('Confirmar Senha')" />
 
             <x-text-input id="password_confirmation" class="block mt-1 w-full"
                             type="password"
@@ -60,12 +60,12 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+            <a class="underline text-sm text-gray-600" href="{{ route('login') }}">
+                {{ __('Já tem uma conta?') }}
             </a>
 
             <x-primary-button class="ms-4">
-                {{ __('Register') }}
+                {{ __('Registrar') }}
             </x-primary-button>
         </div>
     </form>

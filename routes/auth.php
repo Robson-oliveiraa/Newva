@@ -11,31 +11,38 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
-
-    Route::post('register', [RegisteredUserController::class, 'store']);
-
+// ========================================
+// ROTAS DE AUTENTICAÇÃO - APENAS PARA USUÁRIOS NÃO AUTENTICADOS
+// ========================================
+Route::middleware(['guest', 'throttle.auth:5,1'])->group(function () {
+    // Login de usuários
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])
+        ->middleware('throttle:5,1');
 
+    // Recuperação de senha
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
 
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-        ->name('password.email');
+        ->name('password.email')
+        ->middleware('throttle:3,1');
 
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
         ->name('password.reset');
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
-        ->name('password.store');
+        ->name('password.store')
+        ->middleware('throttle:3,1');
 });
 
-Route::middleware('auth')->group(function () {
+// ========================================
+// ROTAS AUTENTICADAS - APENAS PARA USUÁRIOS AUTENTICADOS
+// ========================================
+Route::middleware(['auth', 'has.any.role'])->group(function () {
+    // Verificação de email
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -47,13 +54,19 @@ Route::middleware('auth')->group(function () {
         ->middleware('throttle:6,1')
         ->name('verification.send');
 
+    // Confirmação de senha
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
         ->name('password.confirm');
 
-    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
+    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store'])
+        ->middleware('throttle:5,1');
 
-    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+    // Atualização de senha
+    Route::put('password', [PasswordController::class, 'update'])
+        ->name('password.update')
+        ->middleware('throttle:5,1');
 
+    // Logout
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });

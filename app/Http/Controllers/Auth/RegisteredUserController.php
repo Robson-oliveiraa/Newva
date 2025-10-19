@@ -16,49 +16,58 @@ class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
+     * Apenas para administradores.
      */
     public function create(): View
     {
-        return view('auth.register');
+        // Verificar se o usuário é administrador
+        if (!auth()->user()->hasRole('administrator')) {
+            abort(403, 'Acesso negado. Apenas administradores podem registrar novos usuários.');
+        }
+
+        return view('admin.users.create');
     }
 
     /**
      * Handle an incoming registration request.
+     * Apenas para administradores.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
-        // 1. ADICIONAR VALIDAÇÃO PARA OS NOVOS CAMPOS: cpf, sexo, idade
+        // Verificar se o usuário é administrador
+        if (!auth()->user()->hasRole('administrator')) {
+            abort(403, 'Acesso negado. Apenas administradores podem registrar novos usuários.');
+        }
+
+        // Validação dos dados
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            
-            // Novos Campos
-            'cpf' => ['required', 'string', 'max:14', 'unique:'.User::class], // O CPF é único
-            'sexo' => ['required', 'string', 'in:M,F,Outro'], // Tipos ENUM permitidos
+            'cpf' => ['required', 'string', 'max:14', 'unique:'.User::class],
+            'sexo' => ['required', 'string', 'in:M,F,Outro'],
             'idade' => ['required', 'integer', 'min:1', 'max:150'],
+            'role' => ['required', 'string', 'in:usuario,medico,enfermeiro,administrator'],
         ]);
 
-        // 2. ADICIONAR OS NOVOS CAMPOS NA CRIAÇÃO DO USUÁRIO
+        // Criar o usuário
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-
-            // Novos Campos
             'cpf' => $request->cpf,
             'sexo' => $request->sexo,
             'idade' => $request->idade,
         ]);
 
-        $user->addRole("usuario"); // Adiciona o papel "usuario" via Laratrust
+        // Atribuir a role especificada pelo administrador
+        $user->addRole($request->role);
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Usuário criado com sucesso!');
     }
 }
