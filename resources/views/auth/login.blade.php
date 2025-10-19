@@ -102,7 +102,7 @@
 
                         <!-- Password -->
                         <div>
-                            <x-input-label for="password" :value="__('Password')"
+                            <x-input-label for="password" :value="__('Senha')"
                                 class="block text-sm font-medium text-gray-700 mb-1.5 sm:text-base" />
                             <x-text-input id="password"
                                 class="block p-1 mt-1 w-full border border-black rounded-md  shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base py-2.5 sm:py-3"

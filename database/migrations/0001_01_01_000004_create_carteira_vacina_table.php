@@ -8,7 +8,7 @@ class CreateCarteiraVacinaTable extends Migration
 {
     public function up()
     {
-        Schema::create('carteira_vacina', function (Blueprint $table) {
+        Schema::create('carteira_vacinas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('vacina_id')->constrained()->onDelete('cascade');
@@ -20,6 +20,6 @@ class CreateCarteiraVacinaTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('carteira_vacina');
+        Schema::dropIfExists('carteira_vacinas');
     }
 }

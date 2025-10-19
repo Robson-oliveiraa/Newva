@@ -73,7 +73,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>Salvar</x-primary-button>
+            <x-primary-button class="bg-blue-900 hover:bg-blue-800 text-white px-1 py-0.5 sm:py-3 rounded-md font-semibold sm:text-base w-full sm:w-auto">Salvar</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p

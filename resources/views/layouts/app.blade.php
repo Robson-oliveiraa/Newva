@@ -46,13 +46,13 @@
 
 <body class="bg-gray-50 text-gray-800 antialiased">
     <!-- Cookie Banner (LGPD, inspirado no site) -->
-    <div id="cookie-banner" class="cookie-banner fixed bottom-0 left-0 right-0 p-4 text-sm text-center z-50">
+    {{-- <div id="cookie-banner" class="cookie-banner fixed bottom-0 left-0 right-0 p-4 text-sm text-center z-50">
         <p>Utilizamos cookies em acordo com a Lei Geral de Proteção de Dados (LGPD). Ao continuar, você concorda com
             estas condições.
             <button onclick="document.getElementById('cookie-banner').style.display='none'"
                 class="ml-2 underline text-blue-600 hover:text-blue-500">Fechar</button>
         </p>
-    </div>
+    </div> --}}
 
     <!-- Skip to Content (Acessibilidade) -->
     <a href="#main-content"
